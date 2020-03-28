@@ -46,25 +46,33 @@ $(document).ready(function () {
 
       console.log("first train:"+ newFirstTrain);
       // First Time (pushed back 1 year to make sure it comes before current time)
-      var startTimeConverted = moment(newFirstTrain, "HH:mm").subtract(1, "years");
-      
+      var startTimeConverted = moment(newFirstTrain, "HH:mm")//.subtract(1, "years");
+      console.log("start time: "+startTimeConverted);
   
       // Current Time
       var currentTime = moment();
       console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
       // Difference between the times
-      var diffTime = moment().diff(moment(startTimeConverted), "minutes");
+      var diffTime = currentTime.diff(moment(startTimeConverted), "minutes");
       console.log("DIFFERENCE IN TIME: " + diffTime);
+      var catchTrain;
+      var tMinutesTillTrain ;
+      if (diffTime < 0 ) {
+        catchTrain = moment(startTimeConverted).format("HH:mm");
+        tMinutesTillTrain =startTimeConverted.diff(moment(currentTime), "minutes");
+        console.log("minutes away:"+ tMinutesTillTrain);
+      } else {
       // Time apart (remainder)
       var tRemainder = diffTime % newFreq;
       console.log("remainder:" + tRemainder);
       // Minute(s) Until Train
-      var tMinutesTillTrain = newFreq - tRemainder;
+       tMinutesTillTrain = newFreq - tRemainder;
      console.log("minutes away:"+ tMinutesTillTrain);
       // Next Train
       var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-      var catchTrain = moment(nextTrain).format("HH:mm");
+       catchTrain = moment(nextTrain).format("HH:mm");
       console.log(catchTrain);
+      }
       // Display On Page
       $("#all-display").append(
         ' <tr><td>' + newTrain +
