@@ -53,13 +53,15 @@ $(document).ready(function () {
       var currentTime = moment();
       console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
       // Difference between the times
-      var diffTime = currentTime.diff(moment(startTimeConverted), "minutes");
+       currentTime=moment(currentTime,"HH:mm");
+       console.log("current moment time:" + currentTime);
+      var diffTime = currentTime.diff(startTimeConverted, "minutes");
       console.log("DIFFERENCE IN TIME: " + diffTime);
       var catchTrain;
       var tMinutesTillTrain ;
       if (diffTime < 0 ) {
         catchTrain = moment(startTimeConverted).format("HH:mm");
-        tMinutesTillTrain =startTimeConverted.diff(moment(currentTime), "minutes");
+        tMinutesTillTrain = startTimeConverted.diff(currentTime, "minutes");
         console.log("minutes away:"+ tMinutesTillTrain);
       } else {
       // Time apart (remainder)
